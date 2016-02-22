@@ -16,8 +16,15 @@ public class grabJson : MonoBehaviour {
     public bool startOn = false; 
 	// Use this for initialization
 	void Start () {
-        timer2 = timer; 
-	}
+        timer2 = timer;
+
+        // Initialize BCI board
+        StartCoroutine(checkJSON("localhost:3000/session/front_test/start"));
+        if (startOn == true)
+            on = true;
+        else
+            Debug.Log("ERROR: Cannot grab initial JSON");
+    }
 	
 	// Update is called once per frame
 	void Update () {

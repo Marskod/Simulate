@@ -22,6 +22,8 @@ public class liftSphere : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        if (transform.position.y > 75)
+            transform.position = new Vector3(transform.position.x, 74, transform.position.z);
         //for (int i = 40; i < 3; i++)
           // alpha += gameObject.GetComponent<grabJson>().values[i]; // ~10hz avg
         //alpha /= 3.0f;
@@ -40,7 +42,7 @@ public class liftSphere : MonoBehaviour {
         //height = val * offset;
 
         // Find difference between alpha band and adjacent frequencies
-        float diff = (alpha*alpha*alpha) - (lowBound + highBound) / 2.0f;
+        float diff =  Mathf.Pow(alpha,3) - (lowBound + highBound) / 2.0f;
 
         // Don't allow negative forces
         if (diff < 0.0f)
