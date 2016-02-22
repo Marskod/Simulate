@@ -3,7 +3,7 @@ using System.Collections;
 
 public class grabJson : MonoBehaviour {
 
-    public string url = "http://6b42637b.ngrok.com/session/front_test/fft";
+    string url = "localhost:3000/session/front_test/fft";
     public string data = "";
 
     public float[] values;
@@ -40,7 +40,7 @@ public class grabJson : MonoBehaviour {
     void OnGUI()
     {
         if(GUILayout.Button("Start")){
-            StartCoroutine(checkJSON("http://6b42637b.ngrok.com/session/front_test/start"));
+            StartCoroutine(checkJSON("localhost:3000/session/front_test/start"));
             if (startOn == true)
                 on = true;
             else
@@ -50,7 +50,7 @@ public class grabJson : MonoBehaviour {
 
     void OnApplicationQuit()
     {
-        url = "http://6b42637b.ngrok.com/session/front_test/stop";
+        url = "localhost:3000/session/front_test/stop";
         startOn = false;
         on = false; 
     }
@@ -65,7 +65,7 @@ public class grabJson : MonoBehaviour {
         if (www.error == null)
         {
             c = 0;
-            Debug.Log("WWW Ok!: " + www.data);
+            //Debug.Log("WWW Ok!: " + www.data);
             JSONObject j = new JSONObject(data);
             accessData(j);
         }
@@ -79,7 +79,7 @@ public class grabJson : MonoBehaviour {
     {
         WWW www = new WWW(start);
 
-        yield return www;
+        //yield return www;
 
         // check for errors
         if (www.error == null)
@@ -90,6 +90,8 @@ public class grabJson : MonoBehaviour {
         {
             Debug.Log("WWW Error: " + www.error);
         }
+
+        yield return www;
     }
 
     void accessData(JSONObject obj)
@@ -101,7 +103,7 @@ public class grabJson : MonoBehaviour {
                 {
                     string key = (string)obj.keys[i];
                     JSONObject j = (JSONObject)obj.list[i];
-                    Debug.Log(key);
+                    //Debug.Log(key);
                     accessData(j);
                 }
                 break;
